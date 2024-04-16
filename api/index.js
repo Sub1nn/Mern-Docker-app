@@ -2,7 +2,7 @@ import express from "express"
 
 import cors from "cors"
 import mongoose from "mongoose"
-import Note from "./note.js"
+import { Note } from "./note.js"
 
 const app = express()
 
@@ -10,7 +10,7 @@ app.use(cors())
 app.use(express.json())
 
 mongoose
-  .connect("mongodb://localhost:27017/notes", {
+  .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -42,9 +42,9 @@ app.post("/api/notes/add", async (req, res) => {
 })
 
 app.all("*", (req, res) => {
-  res.status(404).send(<h4>Page not found</h4>)
+  res.status(404).send("<h1>404 | Page not found")
 })
 
-app.listen(3000, () => {
-  console.log("listening to port 3000")
+app.listen(4000, () => {
+  console.log("listening to port 4000")
 })
